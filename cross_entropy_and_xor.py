@@ -1,3 +1,4 @@
+#https://my.oschina.net/propagator/blog/856728
 #!/usr/bin/env python
 
 import tensorflow as tf
@@ -54,7 +55,7 @@ train_step = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(loss)
 
 # Next we create a tf.Session () to run the graph
 init = tf.global_variables_initializer()
-with tf.Session() as sess:
+with tf.InteractiveSession() as sess:
 	# Then we run the session
 	sess.run(init)
 	

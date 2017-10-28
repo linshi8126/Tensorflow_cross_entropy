@@ -1,4 +1,4 @@
-#https://my.oschina.net/propagator/blog/856728
+﻿#https://my.oschina.net/propagator/blog/856728
 #!/usr/bin/env python
 
 import tensorflow as tf
@@ -59,7 +59,7 @@ train_step = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(loss)
 
 # Next we create a tf.Session () to run the graph
 init = tf.global_variables_initializer()
-with tf.InteractiveSession() as sess:
+with tf.Session() as sess:
 	# Then we run the session
 	sess.run(init)
 	
@@ -71,3 +71,6 @@ with tf.InteractiveSession() as sess:
 			for input_value in INPUT_TRAIN:
 				print (input_value, sess.run(y, 
 				feed_dict={inputs_placeholder: [input_value]}))
+	print(sess.run(WEIGHT_HIDDEN),sess.run(BIAS_HIDDEN))
+	print(sess.run(WEIGHT_OUTPUT),sess.run(BIAS_OUTPUT))
+	#print(sess.run(tf.matmul(INPUT_TRAIN,WEIGHT_HIDDEN)+BIAS_HIDDEN))

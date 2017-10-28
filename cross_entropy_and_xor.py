@@ -1,4 +1,4 @@
-#!/usr/bin/env python123111
+#!/usr/bin/env python
 
 import tensorflow as tf
 import math

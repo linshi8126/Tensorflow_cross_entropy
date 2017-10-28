@@ -11,6 +11,10 @@ HIDDEN_COUNT = 2
 LEARNING_RATE = 0.1
 MAX_STEPS = 5000
 
+'''
+tensorflow的输出默认使用了one hot encoding（独热码），类似前面MNIST例子中用到的那样，对每个状态做了区分。
+此处输出包含两个状态0和1，因此分别使用[1,0]和[0,1]代表（也可以反过来用[0,1]代表0，[1,0]代表1，只要一开始规定好就行）
+'''
 # For every training loop we are going to provide the same input and expected output data
 INPUT_TRAIN = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
 OUTPUT_TRAIN = np.array([[1, 0], [0, 1], [0, 1], [1, 0]])

@@ -97,3 +97,6 @@ ENV/
 
 # mypy
 .mypy_cache/
+cross_entropy_test.py
+cross_entropy_and_xor.py
+cross_entropy_test.py

@@ -1,4 +1,4 @@
-#https://my.oschina.net/propagator/blog/856728
+﻿#https://my.oschina.net/propagator/blog/856728
 #!/usr/bin/env python
 
 import tensorflow as tf
@@ -37,7 +37,8 @@ WEIGHT_HIDDEN = tf.Variable(tf.truncated_normal([INPUT_COUNT, HIDDEN_COUNT]))
 BIAS_HIDDEN = tf.Variable(tf.zeros([HIDDEN_COUNT]))
 
 # Define an activation function for the hidden layer. Here we are using the Sigmoid function, but you can use other activation functions offered by Tensorflow.
-AF_HIDDEN = tf.nn.sigmoid(tf.matmul(inputs_placeholder, WEIGHT_HIDDEN) + BIAS_HIDDEN)
+#AF_HIDDEN = tf.nn.sigmoid(tf.matmul(inputs_placeholder, WEIGHT_HIDDEN) + BIAS_HIDDEN)
+AF_HIDDEN = tf.matmul(inputs_placeholder, WEIGHT_HIDDEN) + BIAS_HIDDEN
 
 #  Define weights and biases from hidden layer to output layer. The biases are initialized with tf.zeros to make sure they start with zero values.
 WEIGHT_OUTPUT = tf.Variable(tf.truncated_normal([HIDDEN_COUNT, OUTPUT_COUNT]))

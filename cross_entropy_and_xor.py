@@ -1,4 +1,4 @@
-﻿#https://my.oschina.net/propagator/blog/856728
+#https://my.oschina.net/propagator/blog/856728
 #!/usr/bin/env python
 
 import tensorflow as tf
@@ -60,17 +60,25 @@ train_step = tf.train.GradientDescentOptimizer(LEARNING_RATE).minimize(loss)
 # Next we create a tf.Session () to run the graph
 init = tf.global_variables_initializer()
 with tf.Session() as sess:
+	WEIGHT_HIDDEN__=[[-6.01188993,-6.06372309],[6.21058655,5.87061357]]
+	BIAS_HIDDEN__ = [3.0242548,-3.16409707]
+	WEIGHT_OUTPUT__=[[6.06594706,-7.27570581],[-6.86069012,7.09076118]]
+	BIAS_OUTPUT__ = [-3.13160205,3.13160181]
+	AF_HIDDEN__=tf.nn.sigmoid(tf.matmul(INPUT_TRAIN.astype(np.float32), WEIGHT_HIDDEN__) + BIAS_HIDDEN__)
+	logits__ = tf.matmul(AF_HIDDEN__, WEIGHT_OUTPUT__) + BIAS_OUTPUT__
+	print('logits__',sess.run(logits__))
+	y__ = tf.nn.softmax(logits__)
+	print('y__',sess.run(y__))
 	# Then we run the session
 	sess.run(init)
 	
 	# The following code fetch two values [train_step, loss] in its run call. Because there are two values to fetch, sess.run() returns a tuple with two items. We also print the loss and outputs every 100 steps.
 	for step in range(MAX_STEPS):
 		loss_val = sess.run([train_step, loss], feed_dict)
-		if step % 100 == 0:
+		if step % 1000 == 0:
 			print ("Step:", step, "loss: ", loss_val)
 			for input_value in INPUT_TRAIN:
 				print (input_value, sess.run(y, 
 				feed_dict={inputs_placeholder: [input_value]}))
-	print(sess.run(WEIGHT_HIDDEN),sess.run(BIAS_HIDDEN))
-	print(sess.run(WEIGHT_OUTPUT),sess.run(BIAS_OUTPUT))
-	#print(sess.run(tf.matmul(INPUT_TRAIN,WEIGHT_HIDDEN)+BIAS_HIDDEN))
+	print('WEIGHT_HIDDEN=',sess.run(WEIGHT_HIDDEN),'BIAS_HIDDEN=',sess.run(BIAS_HIDDEN))
+	print('WEIGHT_OUTPUT=',sess.run(WEIGHT_OUTPUT),'BIAS_OUTPUT=',sess.run(BIAS_OUTPUT))

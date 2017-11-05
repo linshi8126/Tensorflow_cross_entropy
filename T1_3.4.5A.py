@@ -12,6 +12,7 @@ w2 = tf.Variable(tf.random_normal([3,1],stddev=1,seed=1))
 
 
 b2 = tf.Variable(tf.zeros([1]))
+#b2 = np.array([0.71348143]);
 
 
 w1__ = [[-1.9618274,2.58235407,1.68203783],[-3.46817183,1.06982327,2.11789012]]
@@ -21,6 +22,10 @@ w2__ = [[-1.82471502]
 ,[ 2.68546653]
 ,[ 1.41819513]]
 
+#w1__ = [[-1.37271583,2.0234375,0.92637938],[-2.92271328,0.55797005,1.38236868]]
+#w2__ = [[-1.29980099],[ 2.06771374],[ 0.7132026 ]]
+#b2__ = [0.71348143]
+
 
 x = tf.placeholder(tf.float32,shape=(None,2),name='x-input')
 
@@ -28,19 +33,21 @@ y_ = tf.placeholder(tf.float32,shape=(None,1),name='y-input')
 
 
 
-a = tf.matmul(x,w1)+b1
 
-y = tf.matmul(a,w2)+b2
+a = tf.matmul(x,w1)
+#a = tf.nn.sigmoid(tf.matmul(x,w1)+b1)
 
+y = tf.matmul(a,w2)
+#y = tf.matmul(a,w2)+b2
 logits_scaled = tf.nn.softmax(y)
 
-#cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y,1e-10,1.0)))
+cross_entropy = -tf.reduce_mean(y_ * tf.log(tf.clip_by_value(y,1e-10,1.0)))
 
 
 #cross_entropy = -tf.reduce_sum(y_ * tf.log(logits_scaled),1)
 
 
-cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y)
+#cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y)
 
 train_step = tf.train.AdamOptimizer(0.001).minimize(cross_entropy)
 
@@ -56,13 +63,13 @@ X = X.astype(np.float32)
 Y = [[int(x1+x2<1)] for(x1,x2) in X]
 
 
-a__ = tf.matmul(X.astype(np.float32),w1__)
+a__ = tf.matmul(X[0:127].astype(np.float32),w1__)
 y__ = tf.matmul(a__,w2__)
+#y__ = tf.matmul(a__,w2__)+b2__
 clip_by_value__ = tf.clip_by_value(y__,1e-10,1.0)
-clip_by_value__ = y__
+#clip_by_value__ = y__
 log__=tf.log(clip_by_value__)
-mul__=Y*log__
-cross_entropy__ = -tf.reduce_mean(Y * tf.log(tf.clip_by_value(y__,1e-10,1.0)))
+mul__=Y[0:127]*log__
 
 
 with tf.Session() as sess:
@@ -77,7 +84,13 @@ with tf.Session() as sess:
 
 	print('X',X[0:16])
 	print('Y',Y[0:16])
-	print('y__',sess.run(y__)[0:16])
+	y1__ = sess.run(y__)
+	y___ = []
+	for i,v in enumerate(y1__):
+		y___.append(v[0])
+	#print('y___',y___)
+	cross_entropy__ = -tf.reduce_mean(Y[0:127] * tf.log(tf.clip_by_value(y___,1e-10,1.0)))
+	print('y__',sess.run(y__)[0:16],sess.run(tf.nn.softmax(y___)))
 	print('clip_by_value__',sess.run(clip_by_value__)[0:16])
 	print('log__',sess.run(log__)[0:16])
 	print('mul__',sess.run(mul__)[0:16])
@@ -117,6 +130,8 @@ with tf.Session() as sess:
 	print(sess.run(w2),sess.run(b2))
 
 	#print(sess.run(total_cross_entropy ))
+
+	print(total_cross_entropy )
 	'''
 
 	w1 = [[-1.9618274,2.58235407,1.68203783],[-3.46817183,1.06982327,2.11789012]]

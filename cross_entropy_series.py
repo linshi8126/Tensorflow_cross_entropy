@@ -1,3 +1,4 @@
+#https://zhuanlan.zhihu.com/p/27842203
 import tensorflow as tf
 import numpy as np
 

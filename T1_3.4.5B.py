@@ -36,4 +36,4 @@ with tf.Session() as sess:
 		sess.run(train_step,feed_dict = {x : X[start:end],y_ : Y[start:end]})
 		if(i%5000==0):
 			total_cross_entropy = sess.run(cross_entropy,feed_dict={x:X ,y_:Y})
-			print("after %d times , loss is %h"%(i,total_cross_entropy))
+			print("after %d times , loss is %g"%(i,total_cross_entropy))

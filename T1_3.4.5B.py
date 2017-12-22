@@ -29,7 +29,7 @@ Y = [[int(x1+x2<1),int(x1+x2>=1)] for (x1,x2) in X]
 with tf.Session() as sess:
 	init = tf.global_variables_initializer()
 	sess.run(init)
-	STEPS = 7000
+	STEPS = 70000
 	for i in range(STEPS):
 		start = (i*batch_size)%dataset_size
 		end = min(start+batch_size,dataset_size)

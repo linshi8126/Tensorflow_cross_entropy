@@ -110,7 +110,7 @@ with tf.Session() as sess:
 		y___.append(v[0])
 	#print('y___',y___)
 	#cross_entropy__ = -tf.reduce_mean(Y * tf.log(tf.clip_by_value(y___,1e-10,1.0)))
-	print('y__',sess.run(y__)[0:16],sess.run(tf.nn.softmax(y__)))
+	print('y__',sess.run(y__)[0:16],sess.run(tf.nn.softmax(y__))[0:16])
 	#print('clip_by_value__',sess.run(clip_by_value__)[0:16])
 	#print('log__',sess.run(log__)[0:16])
 	#print('mul__',sess.run(mul__)[0:16])
